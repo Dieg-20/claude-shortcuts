@@ -1,0 +1,40 @@
+{
+  "manifest_version": 3,
+  "name": "Claude.ai Chat Helper",
+  "version": "1.7",
+  "description": "Shortcuts for claude.ai chat interactions",
+  "permissions": ["activeTab", "scripting", "tabs"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://claude.ai/*"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "commands": {
+    "start-new-chat": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+O",
+        "mac": "Command+Shift+O"
+      },
+      "description": "Start a new chat"
+    },
+    "copy-contents": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+L",
+        "mac": "Command+Shift+L"
+      },
+      "description": "Copy chat contents"
+    },
+    "open-new-chat-tab": {
+      "suggested_key": {
+        "default": "Shift+Alt+O",
+        "mac": "Shift+Alt+O"
+      },
+      "description": "Open new chat in new tab"
+    }
+  }
+}
