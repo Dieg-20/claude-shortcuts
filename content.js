@@ -58,11 +58,27 @@ function handleGoBack() {
 }
 
 function handleEditMessage() {
-  console.log("Attempting to find and click edit button");
-  const editButton = findButtonByPath(
-    "M227.31,73.37,182.63,28.68a16,16,0,0,0-22.63,0L36.69,152A15.86,15.86,0,0,0,32,163.31V208a16,16,0,0,0,16,16H92.69A15.86,15.86,0,0,0,104,219.31L227.31,96a16,16,0,0,0,0-22.63ZM92.69,208H48V163.31l88-88L180.69,120ZM192,108.68,147.31,64l24-24L216,84.68Z"
+  console.log("Attempting to find and click the last edit button");
+
+  const editButtonPath =
+    "M227.31,73.37,182.63,28.68a16,16,0,0,0-22.63,0L36.69,152A15.86,15.86,0,0,0,32,163.31V208a16,16,0,0,0,16,16H92.69A15.86,15.86,0,0,0,104,219.31L227.31,96a16,16,0,0,0,0-22.63ZM92.69,208H48V163.31l88-88L180.69,120ZM192,108.68,147.31,64l24-24L216,84.68Z";
+
+  const editButtons = Array.from(document.querySelectorAll("button")).filter(
+    (button) => {
+      const svg = button.querySelector("svg");
+      const path = svg && svg.querySelector("path");
+      return path && path.getAttribute("d").includes(editButtonPath);
+    }
   );
-  clickButtonAndVerify(editButton);
+
+  if (editButtons.length > 0) {
+    const lastEditButton = editButtons[editButtons.length - 1];
+    console.log("Last edit button found, attempting to click");
+    lastEditButton.click();
+    console.log("Last edit button clicked");
+  } else {
+    console.log("No edit buttons found");
+  }
 }
 
 function findButtonByPath(pathData) {
